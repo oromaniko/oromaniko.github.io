@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { centered } from '../mixins'
 
 const Banner = () => {
     return (
@@ -19,17 +20,15 @@ const BannerContainer = styled.div`
     color: #fff;
     padding: 2rem;
     margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    ${centered};
     flex-direction: column;
 
     h1 {
+        font-family: 'Titillium Web', sans-serif;
         text-shadow: 0 1px 3px rgb(0 0 0 / 30%);
         font-weight: 700;
         font-size: 3.5rem;
         padding-bottom: 0.5rem;
-        margin: 0;
     }
 
     p {
