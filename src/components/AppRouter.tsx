@@ -2,7 +2,6 @@ import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { privateRoutes, RouteNames, publicRoutes } from '../routes'
 import { useTypedSelector } from '../hooks/useTypedSelector'
-import Article from '../pages/Article'
 
 const AppRouter = () => {
     const { isAuth } = useTypedSelector((state) => state.auth)
@@ -38,9 +37,8 @@ const AppRouter = () => {
                     })}
                     <Route
                         path='*'
-                        element={<Navigate replace to={RouteNames.HOME} />}
+                        element={<Navigate to={RouteNames.HOME} />}
                     />
-                    <Route path='/:slag' element={<Article />} />
                 </>
             )}
         </Routes>

@@ -35,7 +35,7 @@ const ArticlePreview = ({ article }: props) => {
                     </button>
                 </FavoritesButton>
             </Meta>
-            <PreviewLink to={`/${slug}`}>
+            <PreviewLink to={`/art/${slug}`}>
                 <h1>{title}</h1>
                 <p>{description}</p>
                 <div>

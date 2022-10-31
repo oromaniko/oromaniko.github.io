@@ -15,7 +15,7 @@ export enum RouteNames {
     LOGOUT = '/logout',
     REGISTER = '/register',
     HOME = '/',
-    ARTICLE_SLUG = '/:slug',
+    ARTICLE_SLUG = '/art/:slug',
 }
 
 export const publicRoutes: IRoute[] = [
