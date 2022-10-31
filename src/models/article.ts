@@ -1,3 +1,5 @@
+import { Tag } from './tags'
+
 export interface Author {
     bio: null | string
     following: boolean
@@ -13,7 +15,7 @@ export interface Article {
     favorited: boolean
     favoritesCount: number
     slug: string
-    tagList: string[]
+    tagList: Tag[]
     title: string
     updatedAt: string
 }

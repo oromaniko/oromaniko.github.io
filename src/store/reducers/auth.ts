@@ -1,8 +1,9 @@
 import { AuthAction, AuthActionTypes, AuthState } from '../types/auth'
+import { User } from '../../models/user'
 
 const initialState: AuthState = {
     isAuth: false,
-    user: '',
+    user: {} as User,
     errors: '',
     isLoading: false,
 }

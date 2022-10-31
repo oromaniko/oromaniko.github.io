@@ -1,6 +1,8 @@
+import { User } from '../../models/user'
+
 export interface AuthState {
     isAuth: boolean
-    user: string
+    user: User
     isLoading: boolean
     errors: string
 }
@@ -24,7 +26,7 @@ export interface SetErrorAction {
 
 export interface SetUserAction {
     type: AuthActionTypes.SET_USER
-    payload: ''
+    payload: User
 }
 
 export interface SetIsLoadingAction {
