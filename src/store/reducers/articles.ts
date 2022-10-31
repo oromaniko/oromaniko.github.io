@@ -7,7 +7,7 @@ import {
 const initialState: ArticlesState = {
     articles: [],
     articlesCount: 0,
-    offset: 0,
+    offset: 10,
     isLoading: false,
     errors: '',
 }

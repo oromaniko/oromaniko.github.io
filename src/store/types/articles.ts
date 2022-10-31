@@ -45,3 +45,5 @@ export type ArticlesAction =
     | SetIsLoadingAction
     | SetOffsetAction
     | SetErrorAction
+
+export type Params = { limit: number; offset: number; tag?: string }

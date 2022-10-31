@@ -3,6 +3,7 @@ import {
     ArticlesActionTypes,
     ArticlesData,
     ArticlesState,
+    Params,
     SetArticlesAction,
     SetErrorAction,
     SetIsLoadingAction,
@@ -13,14 +14,22 @@ import { AppDispatch } from '../index'
 import { ThunkAction } from 'redux-thunk'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
+import { Tag } from '../../models/tags'
 
 const fetchArticles: ActionCreator<
     ThunkAction<Promise<void>, ArticlesState, null, ArticlesAction>
-> = (offset: number) => async (dispatch: AppDispatch) => {
+> = (offset: number, tag: Tag) => async (dispatch: AppDispatch) => {
+    const params: Params = {
+        limit: 10,
+        offset,
+    }
+    if (tag) {
+        params.tag = tag
+    }
     try {
         dispatch(ArticlesActionCreators.setIsLoading(true))
         const response = await axios.get<ArticlesData>(BASE_URL + 'articles', {
-            params: { limit: 10, offset },
+            params,
         })
         dispatch(ArticlesActionCreators.setArticles(response.data))
         dispatch(ArticlesActionCreators.setIsLoading(false))
