@@ -1,12 +1,62 @@
+/* source-sans-pro-regular - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+  url('./fonts/source-sans-pro-v21-latin/source-sans-pro-v21-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('./fonts/source-sans-pro-v21-latin/source-sans-pro-v21-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* source-sans-pro-300 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+  url('./fonts/source-sans-pro-v21-latin/source-sans-pro-v21-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('./fonts/source-sans-pro-v21-latin/source-sans-pro-v21-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* source-sans-pro-600 - latin */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''),
+  url('./fonts/source-sans-pro-v21-latin/source-sans-pro-v21-latin-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('./fonts/source-sans-pro-v21-latin/source-sans-pro-v21-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* titillium-web-regular - latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+  url('./fonts/titillium-web-v15-latin/titillium-web-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('./fonts/titillium-web-v15-latin/titillium-web-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* titillium-web-700 - latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''),
+  url('./fonts/titillium-web-v15-latin/titillium-web-v15-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('./fonts/titillium-web-v15-latin/titillium-web-v15-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 *, :before, :after {
   box-sizing: border-box;
 }
 
 html {
   font-size: 16px;
-}
-body {
-  margin: 0;
+  padding-bottom: 100px;
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -15,6 +65,7 @@ body {
   line-height: 1.5;
   color: #373a3c;
   background-color: #fff;
+  margin: 0;
 }
 
 a {
@@ -27,8 +78,27 @@ button {
   touch-action: manipulation;
   text-transform: none;
   border: 1px solid transparent;
+  display: inline-block;
+  font-weight: normal;
+  line-height: 1.25;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.1;
 }
 
 p {
   margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

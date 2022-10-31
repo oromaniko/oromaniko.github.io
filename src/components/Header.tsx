@@ -1,15 +1,23 @@
 import React from 'react'
-import { RouteNames, routes } from '../routes'
+import { RouteNames } from '../routes'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { container } from '../mixins'
+import { PageContainer } from '../mixins'
+import { useTypedSelector } from '../hooks/useTypedSelector'
 
 const Header = () => {
-    const names = {
-        [RouteNames.HOME]: 'Home',
-        [RouteNames.LOGIN]: 'Sign in',
-        [RouteNames.REGISTER]: 'Sign up',
-    }
+    const { isAuth } = useTypedSelector((state) => state.auth)
+
+    const navItems = isAuth
+        ? [
+              { name: 'Home', path: RouteNames.HOME },
+              { name: 'Sign out', path: RouteNames.LOGOUT },
+          ]
+        : [
+              { name: 'Home', path: RouteNames.HOME },
+              { name: 'Sign in', path: RouteNames.LOGIN },
+              { name: 'Sign up', path: RouteNames.REGISTER },
+          ]
 
     return (
         <header>
@@ -17,10 +25,10 @@ const Header = () => {
                 <NavContainer>
                     <Brand to={RouteNames.HOME}>conduit</Brand>
                     <NavList>
-                        {routes.map(({ path }) => (
-                            <NavLink>
-                                <Link to={path}>{names[path]}</Link>
-                            </NavLink>
+                        {navItems.map(({ path, name }) => (
+                            <NavItem key={path}>
+                                <Link to={path}>{name}</Link>
+                            </NavItem>
                         ))}
                     </NavList>
                 </NavContainer>
@@ -36,17 +44,17 @@ const Navbar = styled.nav`
     padding: 0.5rem 1rem;
 `
 
-const NavContainer = styled.div`
+const NavContainer = styled(PageContainer)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    ${container};
 `
 
 const Brand = styled(Link)`
     font-family: 'Titillium Web', sans-serif;
-    font-size: 1.5rem !important;
-    color: #5cb85c !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #5cb85c;
     text-decoration: none;
 `
 
@@ -57,8 +65,7 @@ const NavList = styled.ul`
     gap: 16px;
 `
 
-const NavLink = styled.li`
-    list-style: none;
+const NavItem = styled.li`
     cursor: pointer;
     a {
         color: rgba(0, 0, 0, 0.8);
