@@ -2,6 +2,8 @@ import React from 'react'
 import { Article } from '../models/article'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import TagsList from './TagsList'
+import { getDate } from '../helpers'
 
 type props = {
     article: Article
@@ -9,18 +11,14 @@ type props = {
 const ArticlePreview = ({ article }: props) => {
     const {
         author,
-        body,
         description,
         favoritesCount,
-        favorited,
         slug,
         tagList,
         title,
-        updatedAt,
         createdAt,
     } = article
 
-    const date = new Date(createdAt)
     return (
         <Container>
             <Meta>
@@ -29,13 +27,7 @@ const ArticlePreview = ({ article }: props) => {
                 </Link>
                 <Info>
                     <Link to='/'>{author.username}</Link>
-                    <span>
-                        {date.toLocaleDateString('en-US', {
-                            month: 'long',
-                            year: 'numeric',
-                            day: 'numeric',
-                        })}
-                    </span>
+                    <span>{getDate(createdAt)}</span>
                 </Info>
                 <FavoritesButton>
                     <button>
@@ -43,15 +35,13 @@ const ArticlePreview = ({ article }: props) => {
                     </button>
                 </FavoritesButton>
             </Meta>
-            <PreviewLink to='/'>
+            <PreviewLink to={`/${slug}`}>
                 <h1>{title}</h1>
                 <p>{description}</p>
-                <span>Read more...</span>
-                <ul>
-                    {tagList.map((tag) => (
-                        <li>{tag}</li>
-                    ))}
-                </ul>
+                <div>
+                    <span>Read more...</span>
+                    <TagsList tags={tagList} />
+                </div>
             </PreviewLink>
         </Container>
     )
@@ -124,31 +114,16 @@ const PreviewLink = styled(Link)`
         line-height: 1.3rem;
     }
 
-    span {
-        max-width: 30%;
-        font-size: 0.8rem;
-        font-weight: 300;
-        color: #bbb;
-        vertical-align: middle;
-    }
-
-    ul {
-        float: right;
-        max-width: 50%;
+    div {
         display: flex;
-        flex-wrap: wrap;
-        margin: 0;
-        gap: 0.5rem;
-        list-style: none;
-        padding: 0;
-        li {
-            border: 1px solid #ddd;
-            border-radius: 10rem;
-            color: #aaa;
-            background: none;
-            font-weight: 300;
+        justify-content: space-between;
+
+        span {
+            max-width: 30%;
             font-size: 0.8rem;
-            padding: 0 0.6rem;
+            font-weight: 300;
+            color: #bbb;
+            vertical-align: middle;
         }
     }
 `
