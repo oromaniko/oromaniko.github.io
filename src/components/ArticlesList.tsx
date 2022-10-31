@@ -4,9 +4,16 @@ import ArticlePreview from './ArticlePreview'
 
 type props = {
     articles: Article[]
+    isLoading: boolean
 }
 
-const ArticlesList = ({ articles }: props) => {
+const ArticlesList = ({ articles, isLoading }: props) => {
+    if (isLoading) {
+        return <div>Loading articles...</div>
+    }
+    if (!articles.length) {
+        return <div>No articles found.</div>
+    }
     return (
         <div>
             {articles.map((item) => (
