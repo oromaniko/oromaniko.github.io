@@ -1,22 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Banner from '../components/Banner'
 import { PageContainer, Row } from '../mixins'
 import { useActions } from '../hooks/useActions'
 import ArticlesList from '../components/ArticlesList'
 import { useTypedSelector } from '../hooks/useTypedSelector'
+import TagsSider from '../components/TagsSider'
+import { Tag } from '../models/tags'
+import FeedToggle from '../components/FeedToggle'
+import ListPagination from '../components/ListPagination'
+import { Outlet } from 'react-router-dom'
 
 const Home = () => {
     const { isAuth } = useTypedSelector((state) => state.auth)
-    const { articles, isLoading: isArticlesLoading } = useTypedSelector(
-        (state) => state.articles
+    const {
+        articles,
+        isLoading: isArticlesLoading,
+        offset,
+    } = useTypedSelector((state) => state.articles)
+    const { tags, isLoading: isTagsLoading } = useTypedSelector(
+        (state) => state.tags
     )
     const { fetchArticles, fetchTags } = useActions()
+    const [selectedTag, setSelectedTag] = useState('' as Tag | '')
 
     useEffect(() => {
-        fetchArticles(10)
+        fetchArticles(offset)
         fetchTags()
     }, [])
+
+    useEffect(() => {
+        fetchArticles(offset, selectedTag)
+    }, [selectedTag, offset])
 
     return (
         <main>
@@ -24,13 +39,24 @@ const Home = () => {
             <PageContainer>
                 <Row>
                     <Content>
-                        {!isArticlesLoading && (
-                            <ArticlesList articles={articles} />
-                        )}
+                        <FeedToggle tag={selectedTag} setTag={setSelectedTag} />
+                        <ArticlesList
+                            articles={articles}
+                            isLoading={isArticlesLoading}
+                        />
+                        <ListPagination />
                     </Content>
-                    <Sider></Sider>
+                    <Sider>
+                        <TagsSider
+                            tags={tags}
+                            isLoading={isTagsLoading}
+                            selected={selectedTag}
+                            handleSearchTag={setSelectedTag}
+                        />
+                    </Sider>
                 </Row>
             </PageContainer>
+            <Outlet />
         </main>
     )
 }
