@@ -16,24 +16,45 @@ import { BASE_URL } from '../../constants'
 
 const login: ActionCreator<
     ThunkAction<Promise<void>, AuthState, null, AuthAction>
-> = (email: string, password: string) => async (dispatch: AppDispatch) => {
+> =
+    (email: string, password: string, setCookie) =>
+    async (dispatch: AppDispatch) => {
+        try {
+            dispatch(AuthActionCreators.setErrors(''))
+            const response = await axios.post<{ user: User }>(
+                BASE_URL + 'users/login',
+                { user: { email, password } }
+            )
+            const expires = new Date()
+            expires.setTime(expires.getTime() + 604800000)
+            setCookie('token', response.data.user.token, { path: '/', expires })
+            dispatch(AuthActionCreators.setUser(response.data.user))
+            dispatch(AuthActionCreators.setIsAuth(true))
+            dispatch(AuthActionCreators.setIsLoading(false))
+        } catch (e: any) {
+            dispatch(
+                AuthActionCreators.setErrors(
+                    e.response.data.errors['email or password'][0]
+                )
+            )
+        }
+    }
+
+const authorize: ActionCreator<
+    ThunkAction<Promise<void>, AuthState, null, AuthAction>
+> = (token: string) => async (dispatch: AppDispatch) => {
     try {
-        dispatch(AuthActionCreators.setIsLoading(true))
         dispatch(AuthActionCreators.setErrors(''))
-        const response = await axios.post<{ user: User }>(
-            BASE_URL + 'users/login',
-            { user: { email, password } }
-        )
+        const response = await axios.get<{ user: User }>(BASE_URL + 'user', {
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        })
         dispatch(AuthActionCreators.setUser(response.data.user))
         dispatch(AuthActionCreators.setIsAuth(true))
         dispatch(AuthActionCreators.setIsLoading(false))
     } catch (e: any) {
-        console.log(e)
-        dispatch(
-            AuthActionCreators.setErrors(
-                e.response.data.errors['email or password'][0]
-            )
-        )
+        dispatch(AuthActionCreators.setErrors(e.response.data.errors))
     }
 }
 
@@ -67,4 +88,5 @@ export const AuthActionCreators = {
     }),
     login: login,
     logout: logout,
+    authorize: authorize,
 }

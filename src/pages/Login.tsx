@@ -4,18 +4,20 @@ import styled from 'styled-components'
 import { validateEmail } from '../helpers'
 import { useActions } from '../hooks/useActions'
 import { useTypedSelector } from '../hooks/useTypedSelector'
+import { useCookies } from 'react-cookie'
 
 const Login = () => {
-    const { isAuth, errors } = useTypedSelector((state) => state.auth)
+    const { errors } = useTypedSelector((state) => state.auth)
     const { login, setErrors } = useActions()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isValid, setIsValid] = useState(true)
+    const [, setCookie] = useCookies()
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (validateEmail(email)) {
-            login(email, password)
+            login(email, password, setCookie)
         } else {
             setErrors('')
             setIsValid(false)

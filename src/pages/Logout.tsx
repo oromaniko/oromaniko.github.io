@@ -2,11 +2,14 @@ import React from 'react'
 import { useActions } from '../hooks/useActions'
 import { PageContainer, Row, FormButton } from '../mixins'
 import styled from 'styled-components'
+import { useCookies } from 'react-cookie'
 
 const Logout = () => {
     const { logout } = useActions()
+    const [, , removeCookie] = useCookies()
 
     const handleLogout = () => {
+        removeCookie('token')
         logout()
     }
 
