@@ -25,13 +25,12 @@ const Home = () => {
     const [selectedTag, setSelectedTag] = useState('' as Tag | '')
 
     useEffect(() => {
-        fetchArticles(offset)
-        fetchTags()
-    }, [])
-
-    useEffect(() => {
         fetchArticles(offset, selectedTag)
     }, [selectedTag, offset])
+
+    useEffect(() => {
+        fetchTags()
+    }, [])
 
     return (
         <main>
@@ -51,7 +50,7 @@ const Home = () => {
                             tags={tags}
                             isLoading={isTagsLoading}
                             selected={selectedTag}
-                            handleSearchTag={setSelectedTag}
+                            setTag={setSelectedTag}
                         />
                     </Sider>
                 </Row>

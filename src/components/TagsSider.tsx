@@ -8,10 +8,10 @@ type props = {
     tags: Tag[]
     selected: Tag | ''
     isLoading: boolean
-    handleSearchTag: (tag: Tag) => void
+    setTag: (tag: Tag) => void
 }
 
-const TagsSider = ({ tags, isLoading, handleSearchTag, selected }: props) => {
+const TagsSider = ({ tags, isLoading, setTag, selected }: props) => {
     return (
         <Sidebar>
             <p>Popular Tags</p>
@@ -24,7 +24,7 @@ const TagsSider = ({ tags, isLoading, handleSearchTag, selected }: props) => {
                             isSelected={tag === selected}
                             key={tag}
                             to={'#'}
-                            onClick={() => handleSearchTag(tag)}
+                            onClick={() => setTag(tag)}
                         >
                             {tag}
                         </TagItem>
