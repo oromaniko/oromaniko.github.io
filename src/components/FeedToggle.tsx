@@ -9,7 +9,7 @@ type props = {
     setTag: (tag: Tag | '') => void
 }
 const FeedToggle = ({ tag, setTag }: props) => {
-    const { fetchArticles } = useActions()
+    const { fetchArticles, setOffset } = useActions()
     const [activeItem, setActiveItem] = useState('Global')
 
     useEffect(() => {
@@ -19,7 +19,8 @@ const FeedToggle = ({ tag, setTag }: props) => {
     }, [tag])
 
     const handleClickGlobalFeed = () => {
-        fetchArticles(10)
+        setOffset(0)
+        fetchArticles(0)
         setActiveItem('Global')
         setTag('')
     }

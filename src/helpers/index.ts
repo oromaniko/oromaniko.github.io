@@ -1,5 +1,5 @@
 export const makeArray = (count: number, offset: number): number[] => {
-    const pageCount = Math.floor(count / offset)
+    const pageCount = Math.ceil(count / offset)
     const arr = new Array(pageCount)
     for (let i = 0; i < pageCount; i += 1) {
         arr[i] = i + 1

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { makeArray } from '../helpers'
 import { useActions } from '../hooks/useActions'
@@ -6,9 +5,14 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const ListPagination = () => {
-    const { articlesCount } = useTypedSelector((state) => state.articles)
-    const [activeItem, setActiveItem] = useState(1)
+    const { articlesCount, offset, isLoading } = useTypedSelector(
+        (state) => state.articles
+    )
     const { setOffset } = useActions()
+
+    if (isLoading) {
+        return null
+    }
 
     if (articlesCount <= 10) {
         return null
@@ -16,7 +20,6 @@ const ListPagination = () => {
 
     const handleClick = (pageNumber: number) => {
         setOffset(pageNumber * 10)
-        setActiveItem(pageNumber)
     }
 
     const arr = makeArray(articlesCount, 10)
@@ -24,12 +27,12 @@ const ListPagination = () => {
     return (
         <nav>
             <PageList>
-                {arr.map((item) => (
+                {arr.map((item, index) => (
                     <li key={item}>
                         <PageLink
                             to={'#'}
-                            isActive={activeItem === item}
-                            onClick={() => handleClick(item)}
+                            isActive={offset / 10 === index}
+                            onClick={() => handleClick(index)}
                         >
                             {item}
                         </PageLink>

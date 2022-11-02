@@ -3,6 +3,7 @@ import { Tag } from '../models/tags'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { centered } from '../mixins'
+import { useActions } from '../hooks/useActions'
 
 type props = {
     tags: Tag[]
@@ -12,6 +13,13 @@ type props = {
 }
 
 const TagsSider = ({ tags, isLoading, setTag, selected }: props) => {
+    const { setOffset } = useActions()
+
+    const handleClick = (tag: Tag) => {
+        setTag(tag)
+        setOffset(0)
+    }
+
     return (
         <Sidebar>
             <p>Popular Tags</p>
@@ -24,7 +32,7 @@ const TagsSider = ({ tags, isLoading, setTag, selected }: props) => {
                             isSelected={tag === selected}
                             key={tag}
                             to={'#'}
-                            onClick={() => setTag(tag)}
+                            onClick={() => handleClick(tag)}
                         >
                             {tag}
                         </TagItem>
