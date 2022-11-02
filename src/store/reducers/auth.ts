@@ -5,7 +5,7 @@ const initialState: AuthState = {
     isAuth: false,
     user: {} as User,
     errors: '',
-    isLoading: false,
+    isLoading: true,
 }
 
 export default function authReducer(
