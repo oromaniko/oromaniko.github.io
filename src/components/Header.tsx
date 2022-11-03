@@ -6,12 +6,13 @@ import { PageContainer } from '../mixins'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 
 const Header = () => {
-    const { isAuth } = useTypedSelector((state) => state.auth)
+    const { isAuth, user } = useTypedSelector((state) => state.auth)
 
     const navItems = isAuth
         ? [
               { name: 'Home', path: RouteNames.HOME },
               { name: 'Sign out', path: RouteNames.LOGOUT },
+              { name: user.username, path: '/user' },
           ]
         : [
               { name: 'Home', path: RouteNames.HOME },
